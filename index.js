@@ -18,14 +18,17 @@ window.onload = () => {
 
 var decodeButtonName = (element) => {
     switch (element.innerText) {
-        case "Calculate BMI":
+        case "BMI":
             calculateBMI();
             break;
-        case "Calculate Gasoline Price":
+        case "Gasoline Price":
             calculateGasolinePrice()
             break;
         case "Prime Control":
             primeControl();
+            break;
+        case "Factorial":
+            calculateFactorial();
             break;
         default:
             break;
@@ -112,15 +115,45 @@ var calculateGasolinePrice = () => {
 var primeControl = () => {
     const num = Number(prompt("Enter a number"));
     if(!isNaN(num)) {
-        const first = document.getElementsByClassName("second")[0];
+        const first = document.getElementsByClassName("first")[0];
+        const second = document.getElementsByClassName("second")[0];
         if(isPrime(num)) {
-            first.innerHTML = "The given number is a prime number";
+            second.innerHTML = "The given number is a prime number";
         } else {
-            first.innerHTML = "The given number isn't a prime number";
+            second.innerHTML = "The given number isn't a prime number";
         }
+        first.innerHTML = "";
     } else {
         alert("Just enter numbers!");
     }
+}
+
+var calculateFactorial = () => {
+    const num = Number(prompt("Enter a number"));
+    if(!isNaN(num)) {
+        const first = document.getElementsByClassName("first")[0];
+        const second = document.getElementsByClassName("second")[0];
+        first.innerHTML = "";
+        second.innerHTML = factorial(num);
+    } else {
+        alert("Just enter numbers!");
+    }
+}
+
+var factorial = (num) => {
+    let result = 1;
+    let resultText = "";
+    while(num >= 1) {
+        result = result * num
+        if(num != 1){
+            resultText += num + " * "
+        }
+        else {
+            resultText += num + " = " + result;
+        }
+        num--;
+    }
+    return resultText;
 }
 
 /* This function returns true or false if given num is prime it returns true */
