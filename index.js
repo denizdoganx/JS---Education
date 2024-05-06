@@ -40,6 +40,9 @@ var decodeButtonName = (element) => {
         case "Letter Counter":
             calculateLetterCounter();
             break;
+        case "Perfect Number":
+            calculatePerfectNumber();
+            break;
         default:
             break;
     }
@@ -173,10 +176,58 @@ var calculateLetterCounter = () => {
     containerSecond.innerHTML = text;
 }
 
+var calculatePerfectNumber = () => {
+    const num = Number(prompt("Enter a number"));   
+    if(!isNaN(num)) {
+        const result = isPerfectNumber(num);
+        if(result[0]) { 
+            containerFirst.innerHTML = "The given number is a Perfect Number";
+            containerSecond.innerHTML = result[1];
+        }
+        else {
+            containerFirst.innerHTML = "The given number isn't a Perfect Number";
+            containerSecond.innerHTML = "";
+        }
+    } else {
+        alert("Just enter numbers!");
+    }
+}
+
+var isPerfectNumber = (num) => {
+    let total = 1;
+    let text = "";
+    let isPerfect = false;
+    const divisors = [1]
+    for(let i = 2;i < parseInt(Math.sqrt(num)) + 1; i++) {
+        if(num % i === 0) {
+            total += (i + num/i);
+            divisors.push(i);
+            if(total === num) {
+                isPerfect = true;
+            }
+        }
+    }
+    if(isPerfect) {
+        const length = divisors.length;
+        for(let i = length-1;i > 0; i--) {
+            divisors.push(num/divisors[i]);
+        }
+        for(let i = 0;i < divisors.length; i++) {
+            if(i !== divisors.length-1) {
+                text += divisors[i] + " + ";
+            }
+            else {
+                text += divisors[i] + " = " + num;
+            }
+        }
+    }
+    return [isPerfect, text];
+}
+
 var getGivenLetterCount = (word, letter) => {
     let counter = 0;
     for(let i = 0;i <word.length; i++) {
-        if(word.charAt(i) === letter) {
+        if(word.charAt(i)=== letter) {
             counter++;
         }
     }
