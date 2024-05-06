@@ -43,6 +43,12 @@ var decodeButtonName = (element) => {
         case "Perfect Number":
             calculatePerfectNumber();
             break;
+        case "Decimal to Binary":
+            conversionDecToBin();
+            break;
+        case "Binary to Decimal":
+            conversionBinToDec();
+            break;
         default:
             break;
     }
@@ -191,6 +197,52 @@ var calculatePerfectNumber = () => {
     } else {
         alert("Just enter numbers!");
     }
+}
+
+var conversionDecToBin = () => {
+    const num = Number(prompt("Enter a decimal number"));
+    if(!isNaN(num)) {
+        let operationNum = num;
+        let binaryReverseResult = "", binaryResult="1";
+        while(operationNum > 1) {
+            binaryReverseResult += parseInt(operationNum % 2);
+            operationNum = parseInt(operationNum / 2);
+        }
+        for(let i = binaryReverseResult.length-1;i >= 0; i--) {
+            binaryResult += binaryReverseResult[i];
+        }
+        containerFirst.innerHTML = "";
+        containerSecond.innerHTML ="(Decimal Form) " + num + " = " + binaryResult + " (Binary Form)";
+    } else {
+        alert("Just enter numbers!");
+    }
+}
+
+var conversionBinToDec = () => {
+    const num = prompt("Enter a binary number");
+    if(!isNaN(num) && doesIncludeNonBinaryCharacter(num)) {
+        let pow = 0;
+        let decimalResult = 0;
+        for(let i = num.length-1;i >= 0; i--) {
+            decimalResult += Math.pow((2 * parseInt(num.charAt(i))), pow);
+            pow++;
+        }
+        containerFirst.innerHTML = "";
+        containerSecond.innerHTML ="(Binary Form) " + num + " = " + decimalResult + " (Decimal Form)";
+    } else {
+        alert("Just enter binary numbers!");
+    }
+}
+
+var doesIncludeNonBinaryCharacter = (num) => {
+    return !num.includes("2") &&
+    !num.includes("3") &&
+    !num.includes("4") &&
+    !num.includes("5") &&
+    !num.includes("6") &&
+    !num.includes("7") &&
+    !num.includes("8") &&
+    !num.includes("9");
 }
 
 var isPerfectNumber = (num) => {
