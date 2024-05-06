@@ -30,6 +30,9 @@ var decodeButtonName = (element) => {
         case "Factorial":
             calculateFactorial();
             break;
+        case "Armstrong Number":
+            calculateArmstrongNumber();
+            break;
         default:
             break;
     }
@@ -140,6 +143,24 @@ var calculateFactorial = () => {
     }
 }
 
+var calculateArmstrongNumber = () => {
+    const num = Number(prompt("Enter a number"));
+    if(!isNaN(num)) {
+        const first = document.getElementsByClassName("first")[0];
+        const second = document.getElementsByClassName("second")[0];
+        const result = isArmstrong(num);
+        if(result[0]) {
+            first.innerHTML = "The given number is Armstrong Number";
+            second.innerHTML = result[1];
+        } else {
+            first.innerHTML = "The given number isn't Armstrong Number";
+            second.innerHTML = "";
+        }
+    } else {
+        alert("Just enter numbers!");
+    }
+}
+
 var factorial = (num) => {
     let result = 1;
     let resultText = "";
@@ -165,4 +186,31 @@ var isPrime = (num) => {
         }
     }
     return result;
+}
+
+/* */
+var isArmstrong = (num) => {
+    const strForm = String(num);
+    let result = 0;
+    let pow = 0;
+    let isFound = false;
+    let calculationText;
+    while(result < num) {
+        result = 0;
+        calculationText = "";
+        for(let i = 0;i < strForm.length; i++) {
+            result += Math.pow(Number(strForm.charAt(i)), pow);
+            if(i !== strForm.length - 1) {
+                calculationText += strForm.charAt(i) + "^" + pow + " + ";
+            } else {
+                calculationText += strForm.charAt(i) + "^" + pow + " = " + result;
+            }
+            
+        }
+        if(result === num) {
+            isFound = true;
+        }
+        pow ++;
+    }
+    return [isFound, calculationText];
 }
