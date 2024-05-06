@@ -1,4 +1,8 @@
+let containerFirst, containerSecond;
+const newLine = "\r\n";
 window.onload = () => {
+    containerFirst = document.getElementsByClassName("first")[0];
+    containerSecond = document.getElementsByClassName("second")[0];
     const sideBarDiv = document.getElementsByClassName("sidebar")[0];
     const sideBarButtons = Array.from(sideBarDiv.children);
     sideBarButtons.forEach(a => {
@@ -33,38 +37,38 @@ var decodeButtonName = (element) => {
         case "Armstrong Number":
             calculateArmstrongNumber();
             break;
+        case "Letter Counter":
+            calculateLetterCounter();
+            break;
         default:
             break;
     }
 } 
 
 var calculateBMI = () => {
-    const bmiValueElement = document.getElementsByClassName("first")[0];
-    const bmiExplanationElement = document.getElementsByClassName("second")[0];
     const height = Number(prompt("Enter your height in meters"));
     const weight = Number(prompt("Enter your weight in kilograms"));
     const bmi = weight / (height**2);
 
-    bmiValueElement.innerText = bmi.toFixed(2);
+    containerFirst.innerText = bmi.toFixed(2);
     
     if (bmi < 18.5) {
-        bmiExplanationElement.innerHTML = "<i>You are under your ideal weight.</i>"
+        containerSecond.innerHTML = "<i>You are under your ideal weight.</i>"
     } else if(bmi <= 24.9) {
-        bmiExplanationElement.innerHTML = "<i>You are in your ideal weight.</i>"
+        containerSecond.innerHTML = "<i>You are in your ideal weight.</i>"
     } else if(bmi <= 29.9) {
-        bmiExplanationElement.innerHTML = "<i>You are over your ideal weight.</i>"
+        containerSecond.innerHTML = "<i>You are over your ideal weight.</i>"
     } else if(bmi <= 39.9) {
-        bmiExplanationElement.innerHTML = "<i>You are way over your ideal weight. (obese)</i>"
+        containerSecond.innerHTML = "<i>You are way over your ideal weight. (obese)</i>"
     } else {
-        bmiExplanationElement.innerHTML = "<i>You are way above your ideal weight. (morbidly obese)</i>"
+        containerSecond.innerHTML = "<i>You are way above your ideal weight. (morbidly obese)</i>"
     }
 }
 
 var calculateGasolinePrice = () => {
     const diesel = 24.53;
     const gasoline = 22.25;
-    const lpg = 11.1;
-    const newLine = "\r\n"; 
+    const lpg = 11.1; 
     const textOfPrompt = 
     "1 - Diesel" +
     newLine + 
@@ -79,8 +83,6 @@ var calculateGasolinePrice = () => {
         if(!isNaN(amountOfFuel)) {
             const customerCash = Number(prompt("How much balance do you have?"));
             if(!isNaN(customerCash)) {
-                const amount = document.getElementsByClassName("first")[0];
-                const isEnoughText = document.getElementsByClassName("second")[0];
                 let price, explanation;
                 switch (typeOfFuel) {
                     case 1:
@@ -99,8 +101,8 @@ var calculateGasolinePrice = () => {
                 else {
                     explanation = "Your money isn't enough to buy it."
                 }
-                amount.innerHTML = price + "₺";
-                isEnoughText.innerHTML = "<i>"+ explanation + "</i>";
+                containerFirst.innerHTML = price + "₺";
+                containerSecond.innerHTML = "<i>"+ explanation + "</i>";
             }
             else {
                 alert("Fill the desired field with number only!");
@@ -118,14 +120,12 @@ var calculateGasolinePrice = () => {
 var primeControl = () => {
     const num = Number(prompt("Enter a number"));
     if(!isNaN(num)) {
-        const first = document.getElementsByClassName("first")[0];
-        const second = document.getElementsByClassName("second")[0];
         if(isPrime(num)) {
-            second.innerHTML = "The given number is a prime number";
+            containerSecond.innerHTML = "The given number is a prime number";
         } else {
-            second.innerHTML = "The given number isn't a prime number";
+            containerSecond.innerHTML = "The given number isn't a prime number";
         }
-        first.innerHTML = "";
+        containerFirst.innerHTML = "";
     } else {
         alert("Just enter numbers!");
     }
@@ -134,10 +134,8 @@ var primeControl = () => {
 var calculateFactorial = () => {
     const num = Number(prompt("Enter a number"));
     if(!isNaN(num)) {
-        const first = document.getElementsByClassName("first")[0];
-        const second = document.getElementsByClassName("second")[0];
-        first.innerHTML = "";
-        second.innerHTML = factorial(num);
+        containerFirst.innerHTML = "";
+        containerSecond.innerHTML = factorial(num);
     } else {
         alert("Just enter numbers!");
     }
@@ -146,19 +144,43 @@ var calculateFactorial = () => {
 var calculateArmstrongNumber = () => {
     const num = Number(prompt("Enter a number"));
     if(!isNaN(num)) {
-        const first = document.getElementsByClassName("first")[0];
-        const second = document.getElementsByClassName("second")[0];
         const result = isArmstrong(num);
         if(result[0]) {
-            first.innerHTML = "The given number is Armstrong Number";
-            second.innerHTML = result[1];
+            containerFirst.innerHTML = "The given number is Armstrong Number";
+            containerSecond.innerHTML = result[1];
         } else {
-            first.innerHTML = "The given number isn't Armstrong Number";
-            second.innerHTML = "";
+            containerFirst.innerHTML = "The given number isn't Armstrong Number";
+            containerSecond.innerHTML = "";
         }
     } else {
         alert("Just enter numbers!");
     }
+}
+
+var calculateLetterCounter = () => {
+    const enteredValue = prompt("Enter a word");
+    let text = "";
+    const observedLetters = [];
+    for(let i = 0;i < enteredValue.length; i++) {
+        const letter = enteredValue.charAt(i);
+        if(!observedLetters.includes(letter)) {
+            const amount = getGivenLetterCount(enteredValue, letter);
+            text += letter + " : " + amount + "<br>";
+            observedLetters.push(letter); 
+        }
+    }
+    containerFirst.innerHTML = "";
+    containerSecond.innerHTML = text;
+}
+
+var getGivenLetterCount = (word, letter) => {
+    let counter = 0;
+    for(let i = 0;i <word.length; i++) {
+        if(word.charAt(i) === letter) {
+            counter++;
+        }
+    }
+    return counter;
 }
 
 var factorial = (num) => {
