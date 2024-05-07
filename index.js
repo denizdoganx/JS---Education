@@ -1,6 +1,13 @@
 let containerFirst, containerSecond;
 const newLine = "\r\n";
+let sidebarElementList = [], sidebarElementNameList = [];
 window.onload = () => {
+    const aTagsHtmlCollecion = document.querySelector(".sidebar").children;
+    sidebarElementList = Array.from(aTagsHtmlCollecion);
+    sidebarElementList.forEach((element) => {
+        sidebarElementNameList.push(element.textContent);
+    });
+
     containerFirst = document.getElementsByClassName("first")[0];
     containerSecond = document.getElementsByClassName("second")[0];
     const sideBarDiv = document.getElementsByClassName("sidebar")[0];
@@ -22,31 +29,31 @@ window.onload = () => {
 
 var decodeButtonName = (element) => {
     switch (element.innerText) {
-        case "BMI":
+        case sidebarElementNameList[0]:
             calculateBMI();
             break;
-        case "Gasoline Price":
+        case sidebarElementNameList[1]:
             calculateGasolinePrice()
             break;
-        case "Prime Control":
+        case sidebarElementNameList[2]:
             primeControl();
             break;
-        case "Factorial":
+        case sidebarElementNameList[3]:
             calculateFactorial();
             break;
-        case "Armstrong Number":
+        case sidebarElementNameList[4]:
             calculateArmstrongNumber();
             break;
-        case "Letter Counter":
+        case sidebarElementNameList[5]:
             calculateLetterCounter();
             break;
-        case "Perfect Number":
+        case sidebarElementNameList[6]:
             calculatePerfectNumber();
             break;
-        case "Decimal to Binary":
+        case sidebarElementNameList[7]:
             conversionDecToBin();
             break;
-        case "Binary to Decimal":
+        case sidebarElementNameList[8]:
             conversionBinToDec();
             break;
         default:
@@ -110,7 +117,7 @@ var calculateGasolinePrice = () => {
                 else {
                     explanation = "Your money isn't enough to buy it."
                 }
-                containerFirst.innerHTML = price + "₺";
+                containerFirst.innerHTML = price.toFixed(2) + "₺";
                 containerSecond.innerHTML = "<i>"+ explanation + "</i>";
             }
             else {
